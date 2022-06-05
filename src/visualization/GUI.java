@@ -8,26 +8,51 @@ import java.util.Random;
 public class GUI extends JFrame {
     private GridTile[][] tiles;
 
-    public GUI(int width, int height) {
+    private Random rand;
+
+    // constructors
+    public GUI(int _width, int _height) {
+        rand = new Random();
+        int[][] obstDataTemp = new int[_width][_height];
+        for (int i = 0; i < _width; i++) {
+            for (int j = 0; j < _height; j++) {
+                obstDataTemp[i][j] = rand.nextInt(0, 2);
+            }
+        }
+        init(_width, _height, obstDataTemp);
+    }
+    public GUI(int _width, int _height, int[][] _obstData) {
+        init(_width, _height, _obstData);
+    }
+
+    // initialising GUI components
+    private void init(int _width, int _height, int[][] obstData) {
         setTitle("world.World visuals.Visualizer");
-        setSize(900, 900);
-        setLocationRelativeTo(null);
+        getContentPane().setPreferredSize(new Dimension(900, 900));
+        //setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         setResizable(true);
         setVisible(true);
+        pack();
 
-        Random rand = new Random();
-        tiles = new GridTile[width][height];
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                tiles[x][y] = new GridTile(new int[x][y], false);
-                tiles[x][y].setBounds(x * getSize().width/10, y*getSize().height/10, getSize().width/10, getSize().height/10);
-                tiles[x][y].setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+        tiles = new GridTile[_width][_height];
+
+        for (int x = 0; x < _width; x++) {
+            for (int y = 0; y < _height; y++) {
+                tiles[x][y] = new GridTile(new int[x][y], obstData[x][y]);
+                tiles[x][y].setBounds(x*getContentPane().getWidth()/_width, y*getContentPane().getHeight()/_height, getContentPane().getWidth()/10, getContentPane().getHeight()/10);
+                if (obstData[x][y] == GridTile.OBSTACLE) tiles[x][y].setBackground(new Color(0, 0, 0));
+                else if (obstData[x][y] == GridTile.NO_OBSTACLE) tiles[x][y].setBackground(new Color(255, 255, 255));
+                else tiles[x][y].setBackground(new Color(255, 0, 204));
                 add(tiles[x][y]);
             }
         }
-
         repaint();
+    }
+
+    // getter
+    public GridTile[][] getTiles() {
+        return tiles;
     }
 }

@@ -14,7 +14,7 @@ public class Environment {
         // initialising every single tile with position and obstacle information
         for (int x = 0; x < size_x; x++) {
             for (int y = 0; y < size_y; y++) {
-                tiles[x][y] = new GridTile(new int[x][y], activation[x][y]);
+                //tiles[x][y] = new GridTile(new int[x][y], activation[x][y]);
             }
         }
     }
