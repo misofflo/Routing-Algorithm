@@ -28,7 +28,7 @@ public class GUI extends JFrame {
     // initialising GUI components
     private void init(int _width, int _height, int[][] obstData) {
         setTitle("world.World visuals.Visualizer");
-        getContentPane().setPreferredSize(new Dimension(900, 900));
+        getContentPane().setPreferredSize(new Dimension(800, 800));
         //setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
@@ -40,10 +40,10 @@ public class GUI extends JFrame {
 
         for (int x = 0; x < _width; x++) {
             for (int y = 0; y < _height; y++) {
-                tiles[x][y] = new GridTile(new int[x][y], obstData[x][y]);
+                tiles[x][y] = new GridTile(x, y, obstData[x][y]);
                 tiles[x][y].setBounds(x*getContentPane().getWidth()/_width, y*getContentPane().getHeight()/_height, getContentPane().getWidth()/10, getContentPane().getHeight()/10);
-                if (obstData[x][y] == GridTile.OBSTACLE) tiles[x][y].setBackground(new Color(0, 0, 0));
-                else if (obstData[x][y] == GridTile.NO_OBSTACLE) tiles[x][y].setBackground(new Color(255, 255, 255));
+                if (obstData[x][y] == GridTile.OBSTACLE) tiles[x][y].setBackground(new Color(0, 0, 0, 252));
+                else if (obstData[x][y] == GridTile.NO_OBSTACLE) tiles[x][y].setBackground(new Color(255, 255, 255, 255));
                 else tiles[x][y].setBackground(new Color(255, 0, 204));
                 add(tiles[x][y]);
             }
